@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Attendance System</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container mt-4">
+    <h2 class="text-center">Student Attendance System</h2>
+    <div class="card p-3 mt-3">
+      <h4>Add Student</h4>
+      <div class="mb-3">
+        <input type="text" id="studentName" class="form form-control" placeholder="Enter student Name"/>
+      </div>
+      <button class="btn btn-primary" onclick="addStudent()">Add Student</button>
+    </div>
+
+    <div class="card p-3 mt-3">
+      <h3>Mark Attendance</h3>
+      <div class="mb-3">
+        <label>Select Date :</label>
+        <input type="date" id="attendanceDate" class="form-control"/>
+      </div>
+      <table class="table table-bordered mt-2">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Attendance</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="studentTable"></tbody>
+      </table>
+    </div>
+
+    <div class="card p-3 mt-3">
+      <h3>Attendance Report</h3>
+      <button class="btn btn-success" onclick="filterAttendance('Present')">Show Present</button>
+      <button class="btn btn-danger" onclick="filterAttendance('Absent')">Show Absent</button>
+      <button class="btn btn-primary" onclick="resetFilter()">Show All</button>
+      <button class="btn btn-warning" onclick="clearAll()">Clear All</button>
+    </div>
+
+    <div class="card p-3 mt-3">
+      <h3>Attendance Summary</h3>
+      <p>Total Students: <span id="totalStudents">0</span></p>
+      <p>Present: <span id="presentCount">0</span></p>
+      <p>Absent: <span id="absentCount">0</span></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
