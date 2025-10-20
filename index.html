@@ -4,56 +4,89 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Student Attendance System</title>
-  <link href="style.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="container mt-4">
-    <h2 class="text-center">Student Attendance System</h2>
-    <div class="card p-3 mt-3">
-      <h4>Add Student</h4>
-      <div class="mb-3">
-        <input type="text" id="studentName" class="form form-control" placeholder="Enter student Name"/>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-4" href="#"><i class="fa-solid fa-user-check me-2"></i>Student Attendance</a>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="card p-4 shadow-sm border-0 rounded-4 fade-in">
+          <h4 class="mb-3 text-primary"><i class="fa-solid fa-user-plus me-2"></i>Add Student</h4>
+          <input type="text" id="studentName" class="form-control mb-3" placeholder="Enter student name"/>
+          <button class="btn btn-primary w-100" onclick="addStudent()"><i class="fa-solid fa-plus me-2"></i>Add Student</button>
+        </div>
       </div>
-      <button class="btn btn-primary" onclick="addStudent()">Add Student</button>
-    </div>
 
-    <div class="card p-3 mt-3">
-      <h3>Mark Attendance</h3>
-      <div class="mb-3">
-        <label>Select Date :</label>
-        <input type="date" id="attendanceDate" class="form-control"/>
+      <div class="col-lg-8 col-md-6">
+        <div class="card p-4 shadow-sm border-0 rounded-4 fade-in">
+          <h4 class="mb-3 text-success"><i class="fa-solid fa-calendar-check me-2"></i>Mark Attendance</h4>
+          <input type="date" id="attendanceDate" class="form-control mb-3"/>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle text-center" id="attendanceTable">
+              <thead class="table-primary">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentTable"></tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-end gap-3 mt-3">
+            <button class="btn btn-outline-danger" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf me-2"></i>Download PDF</button>
+            <button class="btn btn-outline-success" onclick="downloadExcel()"><i class="fa-solid fa-file-excel me-2"></i>Download Excel</button>
+          </div>
+        </div>
       </div>
-      <table class="table table-bordered mt-2">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Attendance</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="studentTable"></tbody>
-      </table>
-    </div>
 
-    <div class="card p-3 mt-3">
-      <h3>Attendance Report</h3>
-      <button class="btn btn-success" onclick="filterAttendance('Present')">Show Present</button>
-      <button class="btn btn-danger" onclick="filterAttendance('Absent')">Show Absent</button>
-      <button class="btn btn-primary" onclick="resetFilter()">Show All</button>
-      <button class="btn btn-warning" onclick="clearAll()">Clear All</button>
-    </div>
+      <div class="col-lg-6">
+        <div class="card p-4 shadow-sm border-0 rounded-4 fade-in">
+          <h4 class="text-warning mb-3"><i class="fa-solid fa-filter me-2"></i>Attendance Report</h4>
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-success flex-fill" onclick="filterAttendance('Present')">Show Present</button>
+            <button class="btn btn-danger flex-fill" onclick="filterAttendance('Absent')">Show Absent</button>
+            <button class="btn btn-primary flex-fill" onclick="resetFilter()">Show All</button>
+            <button class="btn btn-warning flex-fill" onclick="clearAll()">Clear All</button>
+          </div>
+        </div>
+      </div>
 
-    <div class="card p-3 mt-3">
-      <h3>Attendance Summary</h3>
-      <p>Total Students: <span id="totalStudents">0</span></p>
-      <p>Present: <span id="presentCount">0</span></p>
-      <p>Absent: <span id="absentCount">0</span></p>
+      <div class="col-lg-6">
+        <div class="card p-4 shadow-sm border-0 rounded-4 fade-in">
+          <h4 class="text-info mb-3"><i class="fa-solid fa-chart-pie me-2"></i>Attendance Summary</h4>
+          <div class="summary d-flex justify-content-between text-center">
+            <div><h5>Total</h5><p id="totalStudents" class="stat-number">0</p></div>
+            <div><h5>Present</h5><p id="presentCount" class="stat-number text-success">0</p></div>
+            <div><h5>Absent</h5><p id="absentCount" class="stat-number text-danger">0</p></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <footer class="footer mt-5 bg-primary text-white pt-4 pb-3">
+    <div class="container text-center">
+      <p class="mb-1">© 2025 Student Attendance System | Built by <strong>S Kamal Krishna Kumar</strong></p>
+      <p class="small mb-0">
+        <a href="https://www.linkedin.com/in/s-kamal-kumar" target="_blank" class="text-white me-3"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/Kamalkumar25" target="_blank" class="text-white"><i class="fa-brands fa-github"></i></a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
